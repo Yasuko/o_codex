@@ -9,6 +9,9 @@ import {
 } from '../../../_domain/document/reducers/DocumentEmbedForm'
 
 // import component
+import TextAreaInput from '../../_components/_Form/TextAreaInput'
+import TextInput from '../../_components/_Form/TextInput'
+import Button from '../../_components/_Form/Button'
 
 export const Edit = (): JSX.Element => {
     const dispatch = useDispatch()
@@ -29,89 +32,43 @@ export const Edit = (): JSX.Element => {
         <div className='w-svw absolute bottom-4'>
             <form className="m-20">
                 <div className="flex flex-wrap mx-3 mb-1">
-                    <div className="w-full px-3">
-                        <label
-                            className="
-                                block uppercase tracking-wide
-                                text-white-700 text-xs font-bold
-                                mb-2"
-                            htmlFor="grid-password">
-                            DOCUMENT
-                        </label>
-                        <textarea
-                            className="
-                                py-2 px-3 pe-11 block
-                                w-full border-gray-200 shadow-sm rounded-lg
-                                text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500
-                                disabled:opacity-50 disabled:pointer-events-none
-                                dark:bg-white-900 dark:border-black dark:text-black
-                                dark:focus:ring-gray-600"
-                            id="directory-description"
-                            rows = {5}
-                            placeholder=''
-                            defaultValue={ JSON.stringify(d.document) }
-                            onChange={(e) => _setForm(e.target.value, 'setDocument')} />
-                    </div>
-                    <div className="w-full px-3">
-                        <label
-                            className="
-                                block uppercase tracking-wide
-                                text-white-700 text-xs font-bold
-                                mb-2"
-                            htmlFor="grid-password">
-                            Embedding
-                        </label>
-                        <input
-                            type='text'
-                            className="
-                                py-2 px-3 pe-11 block
-                                w-full border-gray-200 shadow-sm rounded-lg
-                                text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500
-                                disabled:opacity-50 disabled:pointer-events-none
-                                dark:bg-white-900 dark:border-black dark:text-black
-                                dark:focus:ring-gray-600"
-                            id="directory-description"
-                            placeholder=''
-                            defaultValue={JSON.stringify(d.embedding).substring(1, 50)}
-                            onChange={(e) => _setForm(e.target.value, 'setEmbedding') } />
-                    </div>
-                    <div className="w-full px-3">
-                        <label
-                            className="
-                                block uppercase tracking-wide
-                                text-white-700 text-xs font-bold
-                                mb-2"
-                            htmlFor="grid-password">
-                            EmbeddingN
-                        </label>
-                        <input
-                            type='text'
-                            className="
-                                py-2 px-3 pe-11 block
-                                w-full border-gray-200 shadow-sm rounded-lg
-                                text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500
-                                disabled:opacity-50 disabled:pointer-events-none
-                                dark:bg-white-900 dark:border-black dark:text-black
-                                dark:focus:ring-gray-600"
-                            id="directory-description"
-                            placeholder=''
-                            defaultValue={JSON.stringify(d.embedding_n).substring(1, 50)}
-                            onChange={(e) => _setForm(e.target.value, 'setEmbeddingN') } />
-                    </div>
+                    <TextAreaInput
+                        label='Document'
+                        placeholder=''
+                        defaultValue={JSON.stringify(d.document)}
+                        extension='w-full px-3'
+                        rows={5}
+                        cols={30}
+                        onChange={(e) => _setForm(e.target.value, 'setDocument')}
+                    />
+                    <TextInput
+                        label='Embedding'
+                        type='text'
+                        placeholder=''
+                        defaultValue={JSON.stringify(d.embedding).substring(1, 50)}
+                        extension='w-full px-3'
+                        onChange={(e) => _setForm(e.target.value, 'setEmbedding')}
+                    />
+                    <TextInput
+                        label='EmbeddingN'
+                        type='text'
+                        placeholder=''
+                        defaultValue={JSON.stringify(d.embedding_n).substring(1, 50)}
+                        extension='w-full px-3'
+                        onChange={(e) => _setForm(e.target.value, 'setEmbeddingN')}
+                    />
                 </div>
-                <button
-                    className='
-                        bg-gray-500 hover:bg-gray-600 text-white
-                        rounded px-4 py-1 m-4
-                        absolute right-28'
+                <Button
+                    color='default'
+                    size='medium'
+                    text='UPDATE'
+                    extension='absolute right-28 m-10'
                     onClick={() => {
                         dispatch({
                             type: 'DocumentAction/updateEmbed',
                         })
                     }}
-                >
-                    UPDATE
-                </button>
+                />
             </form>
         </div>
     )

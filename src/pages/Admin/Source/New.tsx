@@ -8,8 +8,11 @@ import {
     initialState
 } from '../../../_domain/source/reducers/SourceForm'
 
-
 // import component
+import Button from '../../_components/_Form/Button'
+import TextInput from '../../_components/_Form/TextInput'
+import TextAreaInput from '../../_components/_Form/TextAreaInput'
+
 export const New = (): JSX.Element => {
     const dispatch = useDispatch()
 
@@ -25,91 +28,45 @@ export const New = (): JSX.Element => {
     }
 
     return (
-        <div className='w-svw absolute '>
-            <div className="flex flex-wrap mx-3 mb-1">
-                <div className="w-full px-3">
-                    <label
-                        className="
-                            block uppercase tracking-wide
-                            text-white-700 text-xs font-bold
-                            mb-2"
-                        htmlFor="grid-password">
-                        Title
-                    </label>
-                    <input
-                        type='text'
-                        className="
-                            py-2 px-3 pe-11 block
-                            w-full border-gray-200 shadow-sm rounded-lg
-                            text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500
-                            disabled:opacity-50 disabled:pointer-events-none
-                            dark:bg-white-900 dark:border-black dark:text-black
-                            dark:focus:ring-gray-600"
-                        id="directory-description"
-                        placeholder=''
-                        defaultValue={d.title}
-                        onChange={(e) => _setForm(e.target.value, 'setTitle')} />
-                </div>
-                <div className="w-full px-3">
-                    <label
-                        className="
-                            block uppercase tracking-wide
-                            text-white-700 text-xs font-bold
-                            mb-2"
-                        htmlFor="grid-password">
-                        Text
-                    </label>
-                    <textarea
-                        className="
-                            py-2 px-3 pe-11 block
-                            w-full border-gray-200 shadow-sm rounded-lg
-                            text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500
-                            disabled:opacity-50 disabled:pointer-events-none
-                            dark:bg-white-900 dark:border-black dark:text-black
-                            dark:focus:ring-gray-600"
-                        id="directory-description"
-                        rows = {5}
-                        placeholder=''
-                        defaultValue={d.text}
-                        onChange={(e) => _setForm(e.target.value, 'setText') } />
-                </div>
-                <div className="w-full px-3">
-                    <label
-                        className="
-                            block uppercase tracking-wide
-                            text-white-700 text-xs font-bold
-                            mb-2"
-                        htmlFor="grid-password">
-                        URL
-                    </label>
-                    <input
-                        type='text'
-                        className="
-                            py-2 px-3 pe-11 block
-                            w-full border-gray-200 shadow-sm rounded-lg
-                            text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500
-                            disabled:opacity-50 disabled:pointer-events-none
-                            dark:bg-white-900 dark:border-black dark:text-black
-                            dark:focus:ring-gray-600"
-                        id="directory-description"
-                        placeholder=''
-                        defaultValue={d.url}
-                        onChange={(e) => _setForm(e.target.value, 'setURL') } />
-                </div>
+        <div className='w-svw absolute top-0 left-0'>
+            <div className="flex flex-wrap w-3/4 m-auto mt-28">
+                <TextInput
+                    label='Title'
+                    type='text'
+                    placeholder=''
+                    defaultValue={d.title}
+                    extension='w-full px-3'
+                    onChange={(e) => _setForm(e.target.value, 'setTitle')}
+                />
+                <TextAreaInput
+                    label='Text'
+                    placeholder=''
+                    defaultValue={d.text}
+                    extension='w-full'
+                    rows={5}
+                    cols={30}
+                    onChange={(e) => _setForm(e.target.value, 'setText')}
+                />
+                <TextInput
+                    label='URL'
+                    type='text'
+                    placeholder=''
+                    defaultValue={d.url}
+                    extension='w-full px-3'
+                    onChange={(e) => _setForm(e.target.value, 'setURL')}
+                />
             </div>
-            <button
-                className='
-                    bg-gray-500 hover:bg-gray-600 text-white
-                    rounded px-4 py-1 m-4
-                    absolute right-28'
+            <Button
+                color='default'
+                size='middle'
+                text='ADD'
+                extension='absolute right-28 m-10'
                 onClick={() => {
                     dispatch({
                         type: 'SourceAction/add',
                     })
                 }}
-            >
-                ADD
-            </button>
+            />
         </div>
     )
 }

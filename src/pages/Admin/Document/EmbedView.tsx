@@ -9,6 +9,7 @@ import {
 } from '../../../_domain/document/reducers/DocumentEmbedView'
 
 // import component
+import TextBox2 from '../../_components/_View/TextBox2'
 
 export const EmbedView = (): JSX.Element => {
 
@@ -21,74 +22,21 @@ export const EmbedView = (): JSX.Element => {
     return (
         <div className='absolute'>
             <div className="flex flex-wrap mx-3 mb-1">
-                <div className="w-3/4 px-3">
-                    <label
-                        className="
-                            block uppercase tracking-wide
-                            text-white-700 text-xs font-bold
-                            mb-2"
-                        htmlFor="grid-password">
-                        DOCUMENT
-                    </label>
-                    <pre
-                        className="
-                            py-2 px-3 pe-11 block
-                            w-auto h-[200px] border-gray-200 shadow-sm rounded-lg
-                            overflow-y-auto overflow-x-hidden
-                            text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500
-                            disabled:opacity-50 disabled:pointer-events-none
-                            dark:bg-white-900 dark:border-black dark:text-black
-                            dark:focus:ring-gray-600"
-                        id="directory-description"
-                        >
-                        { d.document }
-                    </pre>
-                </div>
-                <div className="w-3/4 px-3">
-                    <label
-                        className="
-                            block uppercase tracking-wide
-                            text-white-700 text-xs font-bold
-                            mb-2"
-                        htmlFor="grid-password">
-                        EMBEDDING
-                    </label>
-                    <pre
-                        className="
-                            py-2 px-3 pe-11 block
-                            w-auto h-[200px] border-gray-200 shadow-sm rounded-lg
-                            overflow-y-auto overflow-x-hidden
-                            text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500
-                            disabled:opacity-50 disabled:pointer-events-none
-                            dark:bg-white-900 dark:border-black dark:text-black
-                            dark:focus:ring-gray-600"
-                        id="directory-description"
-                        >
-                        { grid(d.embedding[0]) }
-                    </pre>
-                </div>
-                <div className="w-3/4 px-3">
-                    <label
-                        className="
-                            block uppercase tracking-wide
-                            text-white-700 text-xs font-bold
-                            mb-2"
-                        htmlFor="grid-password">
-                        EMBEDDING_N
-                    </label>
-                    <pre
-                        className="
-                            py-2 px-3 pe-11 block
-                            w-auto h-[200px] border-gray-200 shadow-sm rounded-lg
-                            overflow-y-auto overflow-x-hidden
-                            text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500
-                            disabled:opacity-50 disabled:pointer-events-none
-                            dark:bg-white-900 dark:border-black dark:text-black
-                            dark:focus:ring-gray-600"
-                        id="directory-description">
-                        { grid(d.embedding_n[0]) }
-                    </pre>
-                </div>
+                <TextBox2
+                    label='Document'
+                    text={d.document}
+                    extension=''
+                />
+                <TextBox2
+                    label='EMBEDDING'
+                    text={ grid(d.embedding[0]) }
+                    extension=''
+                />
+                <TextBox2
+                    label='EMBEDDING_N'
+                    text={ grid(d.embedding_n[0]) }
+                    extension=''
+                />
             </div>
         </div>
     )

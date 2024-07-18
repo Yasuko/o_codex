@@ -14,7 +14,7 @@ import SourceIndex from './Source/index'
 import Header from '../Header'
 import AdminHeader from './AdminHeader'
 
-import TokenForm from '../_component/TokenForm'
+import TokenForm from '../_components/TokenForm'
 import { useEffect } from 'react'
 
 export const Home = () => {

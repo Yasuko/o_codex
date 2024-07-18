@@ -15,6 +15,8 @@ import View from './View'
 import Remove from './Remove'
 import Import from './Import'
 
+import Button from '../../_components/_Form/Button'
+
 
 export const Screen = (): JSX.Element => {
     const dispatch = useDispatch()
@@ -33,21 +35,17 @@ export const Screen = (): JSX.Element => {
             <div className='h-[100vh] flex items-center justify-center '>
                 <div className="m-10 bg-black/80">
                     { checkScreen(ss) }
-                    <button
-                        className='
-                            bg-slate-600 text-white rounded
-                            p-2 right-10 absolute
-                            cursor-pointer'
-                        onClick={
-                            () => {
-                                dispatch({
-                                    type: 'SourceScreen/reset',
-                                })
-                            }
-                        }
-                    >
-                        Close
-                    </button>
+                    <Button
+                        color='dark'
+                        size='middle'
+                        text='Close'
+                        extension='right-10 bottom-10 absolute'
+                        onClick={() => {
+                            dispatch({
+                                type: 'SourceScreen/reset',
+                            })
+                        }}
+                    />
                 </div>
             </div>
         </div>

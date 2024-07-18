@@ -17,6 +17,8 @@ import EmbedEdit from './EmbedEdit'
 import EmbedRemove from './EmbedRemove'
 import Import from './Import'
 
+import Button from '../../_components/_Form/Button'
+
 export const DocumentScreen = (): JSX.Element => {
     const dispatch = useDispatch()
 
@@ -34,21 +36,17 @@ export const DocumentScreen = (): JSX.Element => {
             <div className='h-[100vh] flex items-center justify-center '>
                 <div className=" m-10 bg-black/80">
                     { checkScreen(es) }
-                    <button
-                        className='
-                            bg-slate-600 text-white rounded
-                            p-2 right-10 absolute
-                            cursor-pointer'
-                        onClick={
-                            () => {
-                                dispatch({
-                                    type: 'DocumentScreen/reset',
-                                })
-                            } 
-                        }
-                    >
-                        Close
-                    </button>
+                    <Button
+                        color='dark'
+                        size='middle'
+                        text='Close'
+                        extension='right-10 bottom-10 absolute'
+                        onClick={() => {
+                            dispatch({
+                                type: 'DocumentScreen/reset',
+                            })
+                        }}
+                    />
                 </div>
             </div>
         </div>

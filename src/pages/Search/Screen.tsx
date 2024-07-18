@@ -10,7 +10,7 @@ import {
 import View from './View'
 
 // import component
-import TokenForm from '../_component/TokenForm'
+import TokenForm from '../_components/TokenForm'
 
 export const Screen = (): JSX.Element => {
     const dispatch = useDispatch()

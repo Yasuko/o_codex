@@ -1,6 +1,11 @@
 import { EmbedModel } from '../../_model/embed.model'
 import { StrageModel } from '../../_model/strage.model'
 
+/**
+ * テキストデータを埋め込みデータに変換する
+ * @param text string
+ * @returns Promise<number[]>
+ */
 export const textToEmbed = async (
     text: string
 ): Promise<number[]> => {

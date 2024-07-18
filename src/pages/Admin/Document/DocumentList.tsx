@@ -10,7 +10,9 @@ import {
 } from '../../../_domain/document/reducers/DocumentTextList'
 
 // import component
-import PageController from '../../_component/list_tools/page_controller'
+import PageController from '../../_components/_List/page_controller'
+import Button from '../../_components/_Form/Button'
+import Badge from '../../_components/_Decoration/Badge'
 
 export const DocumentList = (): JSX.Element => {
     const dispatch = useDispatch()
@@ -23,148 +25,132 @@ export const DocumentList = (): JSX.Element => {
     const num = d.texts.length
 
     return (
-        <div className="w-svw py-10 sm:px-6 lg:px-8 lg:py-14">
-            <button
-                className='
-                    w-16
-                    bg-green-400 hover:bg-green-700
-                    text-white
-                    rounded m-2'
-                onClick={() => {
-                    dispatch({type: 'DocumentAction/resetEmbed'})
-                }}>
-                RESET
-            </button>
-            <button
-                className='
-                    w-16
-                    bg-blue-400 hover:bg-blue-700
-                    text-white
-                    rounded m-2'
-                onClick={() => {
-                    dispatch({type: 'DocumentAction/save'})
-                }}>
-                SAVE
-            </button>
-            <button
-                className='
-                    w-16
-                    bg-green-400 hover:bg-green-700
-                    text-white
-                    rounded m-2'
-                onClick={() => {
-                    dispatch({type: 'DocumentAction/load'})
-                }}>
-                LOAD
-            </button>
-            <button
-                className='
-                    w-16
-                    bg-blue-400 hover:bg-blue-700
-                    text-white
-                    rounded m-2'
-                onClick={() => {
-                    dispatch({type: 'DocumentAction/exportDocument'})
-                }}>
-                EXPORT
-            </button>
-            <button
-                className='
-                    w-16
-                    bg-green-400 hover:bg-green-700
-                    text-white
-                    rounded m-2'
-                onClick={() => {
-                    dispatch({type: 'DocumentScreen/import'})
-                }}>
-                IMPORT
-            </button>
-            <div className="flex flex-col">
+    <div className="w-svw py-10 sm:px-6 lg:px-8 lg:py-14">
+        <Button
+            uKey={'b0'}
+            color='green'
+            size='small'
+            text='RESET'
+            extension=''
+            onClick={() => {
+                dispatch({type: 'DocumentAction/resetEmbed'})
+            }}
+        />
+        <Button
+            uKey={'b1'}
+            color='blue'
+            size='small'
+            text='SAVE'
+            extension=''
+            onClick={() => {
+                dispatch({type: 'DocumentAction/save'})
+            }}
+        />
+        <Button
+            uKey={'b2'}
+            color='green'
+            size='small'
+            text='LOAD'
+            extension=''
+            onClick={() => {
+                dispatch({type: 'DocumentAction/load'})
+            }}
+        />
+        <Button
+            uKey={'b3'}
+            color='blue'
+            size='small'
+            text='IMPORT'
+            extension=''
+            onClick={() => {
+                dispatch({type: 'DocumentScreen/import'})
+            }}
+        />
+        <Button
+            uKey={'b4'}
+            color='green'
+            size='small'
+            text='EXPORT'
+            extension=''
+            onClick={() => {
+                dispatch({type: 'DocumentAction/exportDocument'})
+            }}
+        />
+
+        <div className="flex flex-col">
             <div className="-m-1.5 ">
                 <div className="p-1.5 min-w-full inline-block align-middle">
-                <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-slate-900 dark:border-gray-700">
 
                     <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
-                    <div>
-                        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                        Document :{num}
-                        </h2>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                        all documents
-                        </p>
-                    </div>
-
-                    <div>
-                    <div className="inline-flex gap-x-2 me-5">
-                        <a
-                            className="
-                                py-2 px-3 inline-flex items-center gap-x-2
-                                text-sm font-semibold
-                                rounded-lg border border-transparent bg-blue-600
-                                text-white
-                                hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none
-                                dark:focus:outline-none dark:focus:ring-1
-                                dark:focus:ring-gray-600"
-                            href="#"
-                            onClick={() => dispatch({
-                                    type: 'DocumentAction/doEmbed',
-                                })}>
-                            <svg
-                                className="flex-shrink-0 size-4"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M5 12h14"/><path d="M12 5v14"/>
-                            </svg>
-                            EMBED
-                        </a>
+                        <div>
+                            <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                            Document :{num}
+                            </h2>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                            all documents
+                            </p>
                         </div>
+
                         <div className="inline-flex gap-x-2 me-5">
-                            <a
-                                className="
-                                    py-2 px-3 inline-flex items-center gap-x-2
-                                    text-sm font-semibold
-                                    rounded-lg border border-transparent bg-blue-600
-                                    text-white
-                                    hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none
-                                    dark:focus:outline-none dark:focus:ring-1
-                                    dark:focus:ring-gray-600"
-                                href="#"
+                            <Button
+                                uKey={'bb5'}
+                                color='default'
+                                size='middle'
+                                text='EMBED'
+                                icon='plus'
+                                extension=''
+                                onClick={() => dispatch({
+                                        type: 'DocumentAction/doEmbed',
+                                    })}
+                            />
+                            <Button
+                                uKey={'bb6'}
+                                color='default'
+                                size='middle'
+                                text='LOAD'
+                                icon='plus'
+                                extension=''
                                 onClick={() => dispatch({
                                         type: 'SourceAction/throwList',
                                         payload: 'DocumentAction/load_url'
-                                    })}>
-                                <svg
-                                    className="flex-shrink-0 size-4"
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M5 12h14"/><path d="M12 5v14"/>
-                                </svg>
-                                LOAD
-                            </a>
+                                    })}
+                            />
                         </div>
-                    </div>
                     </div>
 
                     <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead className="bg-gray-50 divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                        <tr>
-                        <th scope="col" className="px-6 py-3 text-start border-s border-gray-200 dark:border-gray-700">
-                            <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                            Text
-                            </span>
-                        </th>
+                        <thead className="bg-gray-50 divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                            <tr>
+                                <th
+                                    scope="col"
+                                    className="
+                                        px-6 py-3 text-start border-s border-gray-200
+                                        dark:border-gray-700">
+                                    <span
+                                        className="
+                                        center
+                                        text-xs font-semibold uppercase
+                                        tracking-wide text-gray-800 dark:text-gray-200">
+                                    Text
+                                    </span>
+                                </th>
 
-                        <th scope="col" className="px-6 py-3 text-start">
+                                <th scope="col" className="px-6 py-3 text-start">
+                                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                    URL
+                                    </span>
+                                </th>
+                                <th scope="col" className="px-6 py-3 text-start">
+                                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                        etc
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
 
-                        </th>
-                        </tr>
-                    </thead>
-
-                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                        { page }
-                    </tbody>
+                        <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                            { page }
+                        </tbody>
                     </table>
 
                     <PageController
@@ -172,8 +158,7 @@ export const DocumentList = (): JSX.Element => {
                         elements={num}
                         page={d.page}
                         destination='DocumentTextList/setPage'
-                        />
-                </div>
+                    />
                 </div>
             </div>
         </div>
@@ -204,6 +189,10 @@ const buildList = (
                             dark:text-gray-400">
                             { String(d.texts[_i].title) } .......
                         </span>
+                    </div>
+                </td>
+                <td className="h-px w-auto min-w-[300px] whitespace-nowrap">
+                    <div className="px-6 py-2">
                         <a
                             className="flex items-center gap-x-2"
                             href="#"
@@ -227,13 +216,12 @@ const buildList = (
                 </td>
                 <td className="h-px w-auto min-w-[100px] whitespace-nowrap">
                     <div className="px-6 py-2">
-                        <button
-                            className='
-                                bg-green-400 hover:bg-green-300
-                                text-white
-                                rounded mx-1 px-1 py-1'
+                        <Button
+                            color='green'
+                            size='small'
+                            text='EDIT'
+                            extension=''
                             onClick={() => {
-                                console.log(_i)
                                 dispatch({
                                     type: 'SourceForm/set',
                                     payload: {
@@ -245,14 +233,13 @@ const buildList = (
                                 dispatch({
                                     type: 'DocumentScreen/edit',
                                 })
-                            }}>
-                            Edit
-                        </button>
-                        <button
-                            className='
-                                bg-red-400 hover:bg-red-300
-                                text-white
-                                rounded mx-1 px-1 py-1'
+                            }}
+                        />
+                        <Button
+                            color='red'
+                            size='small'
+                            text='DELETE'
+                            extension=''
                             onClick={() => {
                                 dispatch({
                                     type: 'SourceForm/remove',
@@ -261,24 +248,13 @@ const buildList = (
                                 dispatch({
                                     type: 'DocumentScreen/remove',
                                 })
-                            }}>
-                            delete
-                        </button>
-                        {
-                            d.texts[_i].embedding === false
-                            ? <span className="
-                                bg-red-100
-                                text-red-800 text-xs font-medium
-                                me-2 mx-2 px-2.5 py-0.5 rounded
-                                dark:bg-red-900 dark:text-red-300">未変換
-                            </span>
-                            : <span className="
-                                bg-green-100
-                                text-green-800 text-xs font-medium
-                                me-2 mx-2 px-2.5 py-0.5 rounded
-                                dark:bg-green-900 dark:text-green-300">変換済
-                            </span>
-                        }
+                            }}
+                        />
+                        <Badge
+                            size='small'
+                            text={ d.texts[_i].embedding === false ? '未変換' : '変換済'}
+                            color={ d.texts[_i].embedding === false ? 'red' : 'green' }
+                        />
                     </div>
                 </td>
             </tr>

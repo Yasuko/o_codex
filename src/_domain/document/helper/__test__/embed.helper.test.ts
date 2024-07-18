@@ -6,6 +6,20 @@ import {
 describe('Embed Helper Test', () => {
     test('textToEmbed Test', async () => {
         // HashServiceのモック
+        vi.mock('../../../_model/strage.model', () => {
+            return {
+                StrageModel: {
+                    call: vitest.fn(() => {
+                        return {
+                            getAPI: vitest.fn(() => {
+                                return 'aabbccddee'
+                            })
+                        }
+
+                    })
+                }
+            }
+        })
         vi.mock('../../../_model/embed.model', () => {
             return {
                 EmbedModel: {
@@ -19,11 +33,11 @@ describe('Embed Helper Test', () => {
                                 }
                             })
                         }
-                    
                     })
                 }}
             }
         )
+
         const text = [['aaa', 'bbb', 'ccc']]
         const result = [
             [
@@ -34,6 +48,7 @@ describe('Embed Helper Test', () => {
         ]
         
         const r = await textToEmbed(text)
+        console.log(r)
         expect(r).toStrictEqual(result)
     })
 

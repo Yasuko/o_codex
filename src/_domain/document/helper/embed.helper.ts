@@ -27,11 +27,18 @@ export const textToEmbed = async (
     return result
 }
 
+/**
+ * EmbedAPIを呼び出す
+ * @param t string
+ * @param embed EmbedModel
+ * @returns Promise<number[]>
+ */
 const callAPI = async (
     t: string,
     embed: EmbedModel
 ): Promise<number[]> => {
     const r = await embed.callEmbed(t)
+    console.log('unko',r)
     if (r === false) {
         return []
     }
