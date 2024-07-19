@@ -2,7 +2,8 @@ import React from 'react'
 
 export type TextAreaBoxProps = {
     label: string
-    text: string | number 
+    text: string | number
+    id?: string
 }
 
 // import component
@@ -10,7 +11,7 @@ export const TextAreaBox = (state: TextAreaBoxProps): JSX.Element => {
     return (
         <div className="relative z-0 w-full mb-5 group">
             <pre
-                id="floating_email"
+                id={state.id ? state.id : 'txt-area-box'}
                 className="
                     block py-2.5 px-0 w-full
                     h-10
@@ -25,7 +26,7 @@ export const TextAreaBox = (state: TextAreaBoxProps): JSX.Element => {
                 {state.text}
             </pre>
             <label
-                htmlFor="txt-area-input-form"
+                htmlFor={state.id ? state.id : 'txt-area-box'}
                 className="
                 peer-focus:font-medium absolute
                 text-sm text-gray-500

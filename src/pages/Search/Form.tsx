@@ -30,8 +30,8 @@ export const Form = (): JSX.Element => {
 
     return (
         <div className='
-                w-3/4
-                absolute bottom-4 m-28'>
+                w-3/4 relative -bottom-10
+                mb-0 m-auto'>
                 <div className="flex flex-wrap m-3 mb-1">
                     <TextAreaInput
                         label='Prompt'

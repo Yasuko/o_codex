@@ -3,7 +3,8 @@ import React from 'react'
 export type TextBoxProps = {
     label: string
     text: string
-    extension: string
+    id?: string
+    extension?: string
 }
 
 const BaseStyle = `
@@ -13,9 +14,9 @@ const BaseStyle = `
 // import component
 export const TextBox = (state: TextBoxProps): JSX.Element => {
     return (
-        <div className={BaseStyle + state.extension}>
+        <div className={BaseStyle + (state.extension ? state.extension : '')}>
             <pre
-                id="text-box"
+                id={state.id ? state.id : 'text-box'}
                 className="
                     block py-2.5 px-0 w-full
                     indent-28 text-sm text-gray-900
@@ -30,7 +31,7 @@ export const TextBox = (state: TextBoxProps): JSX.Element => {
             </pre>
 
             <label
-                htmlFor="text-box"
+                htmlFor={state.id ? state.id : 'text-box'}
                 className="
                 peer-focus:font-medium relative
                 text-sm text-gray-500

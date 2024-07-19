@@ -27,7 +27,6 @@ export const Screen = (): JSX.Element => {
                 absolute top-0 left-0 block w-[98vw] h-full
                 bg-black/70 ">
             <div className='h-svh flex items-center justify-center '>
-                aaa
                 <div className=" m-10 bg-black/80">
                     { checkScreen(es) }
                     <button

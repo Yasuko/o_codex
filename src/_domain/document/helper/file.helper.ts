@@ -60,10 +60,15 @@ export const saveTextList = async (
  * @returns Promise<DocumentTextListOptionInterface[]>
  */
 export const loadTextList = async (
-): Promise<DocumentTextListOptionInterface[]> => {
-    const source = await IndexDBModel.call().loadDocumentTextData()
-    return (typeof source === 'object' && source !== null)
-                ? source : initialDocumentTextList.texts
+): Promise<DocumentTextListOptionInterface[] | false> => {
+    try {
+        const source = await IndexDBModel.call().loadDocumentTextData()
+        return (typeof source === 'object' && source !== null)
+                    ? source : initialDocumentTextList.texts        
+    } catch (error) {
+        return false
+    }
+
 }
 
 /**
@@ -83,10 +88,14 @@ export const saveEmbedList = async (
  * @returns Promise<DocumentEmbedListOptionInterface[]>
  */
 export const loadEmbedList = async (
-): Promise<DocumentEmbedListOptionInterface[]> => {
-    const source = await IndexDBModel.call().loadDocumentEmbedData()
-    return (typeof source === 'object' && source !== null)
-                ? source : initialDocumentEmbedList.embeds
+): Promise<DocumentEmbedListOptionInterface[] | false> => {
+    try {
+        const source = await IndexDBModel.call().loadDocumentEmbedData()
+        return (typeof source === 'object' && source !== null)
+                    ? source : initialDocumentEmbedList.embeds
+    } catch (error) {
+        return false
+    }
 }
 
 export const downloadTextList = async (

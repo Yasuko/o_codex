@@ -17,9 +17,9 @@ export const Home = (): JSX.Element => {
         })
     }, [])
     return (
-        <div className=''>
-            <Form />
+        <div className='w-[100vw] h-[100vh'>
             <ResultList />
+            <Form />
             <Screen />
         </div>
     )

@@ -21,7 +21,7 @@ export const ResultList = (): JSX.Element => {
     if (d.results.length === 0) return (<></>)
 
     return (
-        <div className='w-[95vw]'>
+        <div className='w-[95vw] m-auto'>
             { buildList(d.results, dispatch) }
         </div>
     )
