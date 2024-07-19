@@ -20,7 +20,6 @@ export const TextInput = (state: TextInputProps): JSX.Element => {
         <div className={BaseClass + (state.extension ? state.extension : '')}>
             <input
                 type={state.type}
-                name="txt-input-form"
                 id={state.id ? state.id : 'text-input'}
                 className="
                     block py-2.5 px-0 w-full
@@ -36,7 +35,7 @@ export const TextInput = (state: TextInputProps): JSX.Element => {
                 onChange={state.onChange}
                 required />
             <label
-                htmlFor="txt-input-form"
+                htmlFor={state.id ? state.id : "text-input"}
                 className="
                 peer-focus:font-medium absolute
                 text-sm text-gray-500

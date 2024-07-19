@@ -8,7 +8,8 @@ export type TextAreaInputProps = {
     cols: number
     rows: number
     id?: string
-    onChange: (e) => void
+    onChange?: (e) => void
+    onKeyDown?: (e) => void
 }
 
 // import component
@@ -31,7 +32,8 @@ export const TextAreaInput = (state: TextAreaInputProps): JSX.Element => {
                 rows={state.rows ? state.rows : 5}
                 placeholder={state.placeholder ? state.placeholder : ''}
                 defaultValue={state.defaultValue ? state.defaultValue : ''}
-                onChange={state.onChange}
+                onChange={state.onChange ? state.onChange : undefined}
+                onKeyDown={state.onKeyDown ? state.onKeyDown : undefined}
                 required />
             <label
                 htmlFor="txt-area-input-form"
