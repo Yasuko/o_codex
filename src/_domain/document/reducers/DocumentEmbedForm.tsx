@@ -21,10 +21,9 @@ const slice = createSlice({
             state,
             action: PayloadAction<Partial<DocumentEmbedOptionType>>
         ) => {
-            console.log('DocumentEmbedForm set', action.payload)
             return Object.assign({}, state, action.payload)
         },
-        setDoument: (
+        setDocument: (
             state,
             action: PayloadAction<string>
         ) => {
@@ -46,6 +45,14 @@ const slice = createSlice({
         ) => {
             return Object.assign({}, state, {
                 embedding_n: action.payload
+            })
+        },
+        setKey: (
+            state,
+            action: PayloadAction<string>
+        ) => {
+            return Object.assign({}, state, {
+                key: action.payload
             })
         },
         setIndex: (

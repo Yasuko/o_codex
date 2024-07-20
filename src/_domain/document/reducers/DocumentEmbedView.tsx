@@ -18,7 +18,7 @@ const slice = createSlice({
         ) => {
             return Object.assign({}, state, action.payload)
         },
-        setDoument: (
+        setDocument: (
             state,
             action: PayloadAction<string>
         ) => {

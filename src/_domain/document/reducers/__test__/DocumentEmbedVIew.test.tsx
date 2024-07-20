@@ -8,16 +8,16 @@ import { Provider } from "react-redux"
 import { createStore } from '../../../../_store/configureStore'
 const store = createStore()
 
-import DocumentEmbedFormComponent from "./DocumentEmbedForm.component"
+import DocumentEmbedFormComponent from "./DocumentEmbedView.component"
 
-describe("DocumentEmbedForm Reducerのテスト", () => {
+describe("DocumentEmbedView Reducerのテスト", () => {
     test(
         "documentの登録ができる",
         () => {
             render(<Provider store={store}><DocumentEmbedFormComponent/></Provider>)
             const input = document.getElementById("document-input") as HTMLInputElement
             const _v = document.getElementById("document") as HTMLDivElement
-            fireEvent.change(input, {target: {value: JSON.stringify(["test"])}})
+            fireEvent.change(input, {target: {value: "test"}})
             expect(_v.innerHTML).toEqual('test')
         }
     )
@@ -42,23 +42,13 @@ describe("DocumentEmbedForm Reducerのテスト", () => {
         }
     )
     test(
-        "keyの登録ができる",
+        "Reducerのリセットができる",
         () => {
             render(<Provider store={store}><DocumentEmbedFormComponent/></Provider>)
-            const input = document.getElementById("key-input") as HTMLInputElement
-            const _v = document.getElementById("key-view") as HTMLDivElement
-            fireEvent.change(input, {target: {value: 'test1'}})
-            expect(_v.innerHTML).toEqual('test1')
-        }
-    )
-    test(
-        "indexの登録ができる",
-        () => {
-            render(<Provider store={store}><DocumentEmbedFormComponent/></Provider>)
-            const input = document.getElementById("index-input") as HTMLInputElement
-            const _v = document.getElementById("index-view") as HTMLDivElement
-            fireEvent.change(input, {target: {value: '1'}})
-            expect(_v.innerHTML).toEqual('1')
+            const input = document.getElementById("reset-button") as HTMLButtonElement
+            const _v = document.getElementById("document") as HTMLDivElement
+            fireEvent.click(input)
+            expect(_v.innerHTML).toEqual('')
         }
     )
 })

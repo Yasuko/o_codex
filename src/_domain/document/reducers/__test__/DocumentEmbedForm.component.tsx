@@ -24,7 +24,7 @@ export const DocumentEmbedFormComponent = (): JSX.Element => {
                 id='document-input'
                 value=''
                 onChange={(e) => dispatch({
-                    type: 'DocumentEmbedForm/setDoument',
+                    type: 'DocumentEmbedForm/setDocument',
                     payload: JSON.parse(e.target.value)
                 })}
             />
@@ -52,7 +52,7 @@ export const DocumentEmbedFormComponent = (): JSX.Element => {
                 value=''
                 onChange={(e) => dispatch({
                     type: 'DocumentEmbedForm/setKey',
-                    payload: JSON.parse(e.target.value)
+                    payload: e.target.value
                 })}
             />
             <input
@@ -61,13 +61,20 @@ export const DocumentEmbedFormComponent = (): JSX.Element => {
                 value=''
                 onChange={(e) => dispatch({
                     type: 'DocumentEmbedForm/setIndex',
-                    payload: JSON.parse(e.target.value)
+                    payload: e.target.value
                 })}
             />
             <div id="document">{d.document[0]}</div>
-
+            <div id="embedding">{dataChecker(d.embedding)}</div>
+            <div id="embedding_n">{dataChecker(d.embedding_n)}</div>
+            <div id="key-view">{d.key}</div>
+            <div id="index-view">{d.index}</div>
         </div>
     )
+}
+
+const dataChecker = (data: number[] | number[][][]): string | number => {
+    return (data[0] instanceof Array) ? data[0][0][0] : data[0]
 }
 
 export default DocumentEmbedFormComponent
