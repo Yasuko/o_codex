@@ -3,76 +3,78 @@ import { useSelector, useDispatch } from 'react-redux'
 
 // import reducer
 import {
-    DocumentEmbedListPropsInterface,
-    DocumentEmbedListInterface,
+    DocumentTextListPropsInterface,
+    DocumentTextListInterface,
     initialState
-} from '../DocumentEmbedList'
+} from '../DocumentTextList'
 
 // import component
 
 export const DocumentEmbedListComponent = (): JSX.Element => {
     const dispatch = useDispatch()
 
-    const d = useSelector((state: DocumentEmbedListPropsInterface): DocumentEmbedListInterface => {
-                    return (state.DocumentEmbedList === undefined) ? initialState : state.DocumentEmbedList
-                })
+    const d = useSelector((
+            state: DocumentTextListPropsInterface
+        ): DocumentTextListInterface => {
+            return (state.DocumentTextList === undefined) ? initialState : state.DocumentTextList
+        })
 
     return (
         <div className='w-svw absolute bottom-4'>
             <input
                 type='text'
-                id='page-input'
+                id='add-text'
                 value=''
                 onChange={(e) => dispatch({
-                    type: 'DocumentEmbedList/setPage',
+                    type: 'DocumentTextList/add',
+                    payload: JSON.parse(e.target.value)
+                })}
+            />
+            <input
+                type='text'
+                id='update-text'
+                value=''
+                onChange={(e) => dispatch({
+                    type: 'DocumentTextList/update',
+                    payload: JSON.parse(e.target.value)
+                })}
+            />
+            <input
+                type='text'
+                id='remove-text'
+                value=''
+                onChange={(e) => dispatch({
+                    type: 'DocumentTextList/remove',
+                    payload: JSON.parse(e.target.value)
+                })}
+            />
+            <input
+                type='text'
+                id='set-page'
+                value=''
+                onChange={(e) => dispatch({
+                    type: 'DocumentTextList/setPage',
                     payload: e.target.value
                 })}
             />
             <input
                 type='text'
-                id='max-list-input'
+                id='set-max-list'
                 value=''
                 onChange={(e) => dispatch({
-                    type: 'DocumentEmbedList/setEmbedding',
-                    payload: JSON.parse(e.target.value)
-                })}
-            />
-            <input
-                type='text'
-                id='embed-add-input'
-                value=''
-                onChange={(e) => dispatch({
-                    type: 'DocumentEmbedList/add',
-                    payload: JSON.parse(e.target.value)
-                })}
-            />
-            <input
-                type='text'
-                id='embed-update-input'
-                value=''
-                onChange={(e) => dispatch({
-                    type: 'DocumentEmbedList/update',
-                    payload: JSON.parse(e.target.value)
-                })}
-            />
-            <input
-                type='text'
-                id='embed-remove-input'
-                value=''
-                onChange={(e) => dispatch({
-                    type: 'DocumentEmbedList/remove',
-                    payload: JSON.parse(e.target.value)
+                    type: 'DocumentTextList/setMaxList',
+                    payload: e.target.value
                 })}
             />
             <button
                 id='reset-button'
                 onClick={() => dispatch({
-                    type: 'DocumentEmbedList/reset'
+                    type: 'DocumentTextList/reset'
                 })}
             > Reset </button>
             <div id="page">{d.page}</div>
             <div id="max_list">{d.max_list}</div>
-            <div id="embeds">{JSON.stringify(d.embeds)}</div>
+            <div id="texts">{JSON.stringify(d.texts)}</div>
         </div>
     )
 }

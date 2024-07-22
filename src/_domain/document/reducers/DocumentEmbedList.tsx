@@ -32,7 +32,12 @@ const slice = createSlice({
             action: PayloadAction<DocumentEmbedListOptionInterface & {key: string}>
         ) => {
             const s = duplicator(state.embeds)
-            s.push(action.payload)
+            s.push({
+                document: action.payload.document,
+                embedding: action.payload.embedding,
+                embedding_n: action.payload.embedding_n,
+                key: action.payload.key
+            })
             return Object.assign({}, state, {
                 embeds: s
             })
@@ -48,7 +53,12 @@ const slice = createSlice({
             >
         ) => {
             const s = duplicator(state.embeds)
-            s[action.payload.index] = action.payload
+            s[action.payload.index] = {
+                document: action.payload.document,
+                embedding: action.payload.embedding,
+                embedding_n: action.payload.embedding_n,
+                key: action.payload.key
+            }
             return Object.assign({}, state, {
                 embeds: s
             })

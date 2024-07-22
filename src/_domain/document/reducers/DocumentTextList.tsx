@@ -37,7 +37,15 @@ const slice = createSlice({
                     >
         ) => {
             const s = duplicator(state.texts)
-            s.push(action.payload)
+            s.push({
+                title: action.payload.title,
+                url: action.payload.url,
+                loading: action.payload.loading,
+                document: action.payload.document,
+                embedding: action.payload.embedding,
+                key: action.payload.key,
+                chunk: action.payload.chunk
+            })
             return Object.assign({}, state, {
                 texts: s
             })
@@ -50,7 +58,15 @@ const slice = createSlice({
             >
         ) => {
             const s = duplicator(state.texts)
-            s[action.payload.index] = action.payload
+            s[action.payload.index] = {
+                title: action.payload.title,
+                url: action.payload.url,
+                loading: action.payload.loading,
+                document: action.payload.document,
+                embedding: action.payload.embedding,
+                key: action.payload.key,
+                chunk: action.payload.chunk
+            }
             return Object.assign({}, state, {
                 texts: s
             })
@@ -71,6 +87,14 @@ const slice = createSlice({
         ) => {
             return Object.assign({}, state, {
                 page: action.payload
+            })
+        },
+        setMaxList: (
+            state,
+            action: PayloadAction<number>
+        ) => {
+            return Object.assign({}, state, {
+                max_list: action.payload
             })
         },
         reset: () => {

@@ -3,78 +3,83 @@ import { useSelector, useDispatch } from 'react-redux'
 
 // import reducer
 import {
-    DocumentEmbedListPropsInterface,
-    DocumentEmbedListInterface,
+    SourceListPropsInterface,
+    SourceListInterface,
     initialState
-} from '../DocumentEmbedList'
+} from '../SourceList'
 
 // import component
 
-export const DocumentEmbedListComponent = (): JSX.Element => {
+export const SourceListComponent = (): JSX.Element => {
     const dispatch = useDispatch()
 
-    const d = useSelector((state: DocumentEmbedListPropsInterface): DocumentEmbedListInterface => {
-                    return (state.DocumentEmbedList === undefined) ? initialState : state.DocumentEmbedList
+    const d = useSelector((state: SourceListPropsInterface): SourceListInterface => {
+                    return (state.SourceList === undefined) ? initialState : state.SourceList
                 })
 
     return (
         <div className='w-svw absolute bottom-4'>
+            {/* @type SourceListInterface */}
             <input
                 type='text'
-                id='page-input'
+                id='set-add'
                 value=''
                 onChange={(e) => dispatch({
-                    type: 'DocumentEmbedList/setPage',
+                    type: 'SourceList/add',
+                    payload: JSON.parse(e.target.value)
+                })}
+            />
+            {/* @type SourceListInterface + {index: number} */}
+            <input
+                type='text'
+                id='set-update'
+                value=''
+                onChange={(e) => dispatch({
+                    type: 'SourceList/update',
+                    payload: JSON.parse(e.target.value)
+                })}
+            />
+            {/* @type number */}
+            <input
+                type='text'
+                id='set-remove'
+                value=''
+                onChange={(e) => dispatch({
+                    type: 'SourceList/remove',
                     payload: e.target.value
                 })}
             />
+            {/* @type number */}
             <input
                 type='text'
-                id='max-list-input'
+                id='set-page'
                 value=''
                 onChange={(e) => dispatch({
-                    type: 'DocumentEmbedList/setEmbedding',
-                    payload: JSON.parse(e.target.value)
+                    type: 'SourceList/page',
+                    payload: e.target.value
                 })}
             />
+            {/* @type number */}
             <input
                 type='text'
-                id='embed-add-input'
+                id='set-max-list'
                 value=''
                 onChange={(e) => dispatch({
-                    type: 'DocumentEmbedList/add',
-                    payload: JSON.parse(e.target.value)
-                })}
-            />
-            <input
-                type='text'
-                id='embed-update-input'
-                value=''
-                onChange={(e) => dispatch({
-                    type: 'DocumentEmbedList/update',
-                    payload: JSON.parse(e.target.value)
-                })}
-            />
-            <input
-                type='text'
-                id='embed-remove-input'
-                value=''
-                onChange={(e) => dispatch({
-                    type: 'DocumentEmbedList/remove',
-                    payload: JSON.parse(e.target.value)
+                    type: 'SourceList/maxList',
+                    payload: e.target.value
                 })}
             />
             <button
                 id='reset-button'
                 onClick={() => dispatch({
-                    type: 'DocumentEmbedList/reset'
+                    type: 'SourceList/reset'
                 })}
             > Reset </button>
             <div id="page">{d.page}</div>
             <div id="max_list">{d.max_list}</div>
-            <div id="embeds">{JSON.stringify(d.embeds)}</div>
+            <div id="sources">{JSON.stringify(d.sources)}</div>
         </div>
     )
 }
 
-export default DocumentEmbedListComponent
+export default SourceListComponent

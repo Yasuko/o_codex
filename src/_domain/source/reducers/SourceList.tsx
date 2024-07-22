@@ -32,7 +32,11 @@ const slice = createSlice({
             action: PayloadAction<SourceOptionInterface>
         ) => {
             const s = duplicator(state.sources)
-            s.push(action.payload)
+            s.push({
+                title: action.payload.title,
+                text: action.payload.text,
+                url: action.payload.url
+            })
             return Object.assign({}, state, {
                 sources: s
             })
@@ -44,7 +48,11 @@ const slice = createSlice({
             >
         ) => {
             const s = duplicator(state.sources)
-            s[action.payload.index] = action.payload
+            s[action.payload.index] = {
+                title: action.payload.title,
+                text: action.payload.text,
+                url: action.payload.url
+            }
             return Object.assign({}, state, {
                 sources: s
             })
@@ -53,7 +61,6 @@ const slice = createSlice({
             state,
             action: PayloadAction<number>
         ) => {
-            console.log('remove', action.payload)
             const s = duplicator(state.sources)
             s.splice(action.payload, 1)
             return Object.assign({}, state, {
@@ -66,6 +73,14 @@ const slice = createSlice({
         ) => {
             return Object.assign({}, state, {
                 page: action.payload
+            })
+        },
+        maxList: (
+            state,
+            action: PayloadAction<number>
+        ) => {
+            return Object.assign({}, state, {
+                max_list: action.payload
             })
         },
         reset: () => {

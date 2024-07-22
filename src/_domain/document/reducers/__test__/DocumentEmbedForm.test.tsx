@@ -16,8 +16,9 @@ describe("DocumentEmbedForm Reducerのテスト", () => {
         () => {
             render(<Provider store={store}><DocumentEmbedFormComponent/></Provider>)
             const input = document.getElementById("document-input") as HTMLInputElement
-            const _v = document.getElementById("document") as HTMLDivElement
             fireEvent.change(input, {target: {value: JSON.stringify(["test"])}})
+
+            const _v = document.getElementById("document") as HTMLDivElement
             expect(_v.innerHTML).toEqual('test')
         }
     )
@@ -26,8 +27,9 @@ describe("DocumentEmbedForm Reducerのテスト", () => {
         () => {
             render(<Provider store={store}><DocumentEmbedFormComponent/></Provider>)
             const input = document.getElementById("embedding-input") as HTMLInputElement
-            const _v = document.getElementById("embedding") as HTMLDivElement
             fireEvent.change(input, {target: {value: JSON.stringify(['test1','test2','test3'])}})
+
+            const _v = document.getElementById("embedding") as HTMLDivElement
             expect(_v.innerHTML).toEqual('test1')
         }
     )
@@ -36,8 +38,9 @@ describe("DocumentEmbedForm Reducerのテスト", () => {
         () => {
             render(<Provider store={store}><DocumentEmbedFormComponent/></Provider>)
             const input = document.getElementById("embedding_n-input") as HTMLInputElement
-            const _v = document.getElementById("embedding_n") as HTMLDivElement
             fireEvent.change(input, {target: {value: JSON.stringify(['test1','test2','test3'])}})
+
+            const _v = document.getElementById("embedding_n") as HTMLDivElement
             expect(_v.innerHTML).toEqual('test1')
         }
     )
@@ -46,8 +49,9 @@ describe("DocumentEmbedForm Reducerのテスト", () => {
         () => {
             render(<Provider store={store}><DocumentEmbedFormComponent/></Provider>)
             const input = document.getElementById("key-input") as HTMLInputElement
-            const _v = document.getElementById("key-view") as HTMLDivElement
             fireEvent.change(input, {target: {value: 'test1'}})
+
+            const _v = document.getElementById("key-view") as HTMLDivElement
             expect(_v.innerHTML).toEqual('test1')
         }
     )
@@ -56,8 +60,9 @@ describe("DocumentEmbedForm Reducerのテスト", () => {
         () => {
             render(<Provider store={store}><DocumentEmbedFormComponent/></Provider>)
             const input = document.getElementById("index-input") as HTMLInputElement
-            const _v = document.getElementById("index-view") as HTMLDivElement
             fireEvent.change(input, {target: {value: '1'}})
+
+            const _v = document.getElementById("index-view") as HTMLDivElement
             expect(_v.innerHTML).toEqual('1')
         }
     )
