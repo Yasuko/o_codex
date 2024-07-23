@@ -16,7 +16,7 @@ export type DocumentTextListOptionInterface = DocumentTextOptionType
 export type DocumentTextListInterface = DocumentTextListType
 export const initialState: DocumentTextListInterface = initialDocumentTextList
 
-const slice = createSlice({
+export const slice = createSlice({
     name: 'DocumentTextList',
     initialState,
     reducers: {

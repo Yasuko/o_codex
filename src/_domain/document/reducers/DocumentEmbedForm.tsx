@@ -13,7 +13,7 @@ export const initialState: DocumentEmbedFormInterface = {
     index: -1
 }
 
-const slice = createSlice({
+export const slice = createSlice({
     name: 'DocumentEmbedForm',
     initialState,
     reducers: {
@@ -25,7 +25,7 @@ const slice = createSlice({
         },
         setDocument: (
             state,
-            action: PayloadAction<string>
+            action: PayloadAction<[string]>
         ) => {
             return Object.assign({}, state, {
                 document: action.payload
@@ -33,7 +33,7 @@ const slice = createSlice({
         },
         setEmbedding: (
             state,
-            action: PayloadAction<number[]>
+            action: PayloadAction<number[][][]>
         ) => {
             return Object.assign({}, state, {
                 embedding: action.payload
@@ -41,7 +41,7 @@ const slice = createSlice({
         },
         setEmbeddingN: (
             state,
-            action: PayloadAction<number[]>
+            action: PayloadAction<number[][][]>
         ) => {
             return Object.assign({}, state, {
                 embedding_n: action.payload

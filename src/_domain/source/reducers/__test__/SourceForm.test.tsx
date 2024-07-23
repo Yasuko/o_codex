@@ -1,58 +1,49 @@
-import React from "react"
-import "@testing-library/jest-dom"
+import { describe, it, expect } from 'vitest'
+import reducer, { initialState, slice } from '../SourceForm' // 適切なパスに置き換えてください
+import { SourceFormType } from '../__type.source' // 適切なパスに置き換えてください
 
-import { fireEvent, render } from "@testing-library/react"
-import { describe, expect, test } from "vitest"
+const testSourceForm: SourceFormType = {
+    index: 1,
+    title: 'Title1',
+    text: 'Text1',
+    url: 'http://example.com'
+}
 
-import { Provider } from "react-redux"
-import { createStore } from '../../../../_store/configureStore'
-const store = createStore()
+describe('SourceFormスライス', () => {
+    it('setアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceFormType = initialState
+        const newForm: SourceFormType = testSourceForm
+        const newState = reducer(previousState, slice.actions.set(newForm))
+        expect(newState).toEqual(newForm)
+    })
 
-import SourceFormComponent from "./SourceForm.component"
+    it('setIndexアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceFormType = initialState
+        const newState = reducer(previousState, slice.actions.setIndex(1))
+        expect(newState.index).toBe(1)
+    })
 
-describe("SourceForm Reducerのテスト", () => {
-    test(
-        "indexの登録ができる",
-        () => {
-            render(<Provider store={store}><SourceFormComponent/></Provider>)
-            const input = document.getElementById("set-index") as HTMLInputElement
-            fireEvent.change(input, {target: {value: 23}})
+    it('setTitleアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceFormType = initialState
+        const newState = reducer(previousState, slice.actions.setTitle('New Title'))
+        expect(newState.title).toBe('New Title')
+    })
 
-            const _v = document.getElementById("index") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(String(23))
-        }
-    )
-    test(
-        "titleの登録ができる",
-        () => {
-            render(<Provider store={store}><SourceFormComponent/></Provider>)
-            const input = document.getElementById("set-title") as HTMLInputElement
-            fireEvent.change(input, {target: {value: 'test1'}})
+    it('setTextアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceFormType = initialState
+        const newState = reducer(previousState, slice.actions.setText('New Text'))
+        expect(newState.text).toBe('New Text')
+    })
 
-            const _v = document.getElementById("title") as HTMLDivElement
-            expect(_v.innerHTML).toEqual('test1')
-        }
-    )
-    test(
-        "textの登録ができる",
-        () => {
-            render(<Provider store={store}><SourceFormComponent/></Provider>)
-            const input = document.getElementById("set-text") as HTMLInputElement
-            fireEvent.change(input, {target: {value: 'test1'}})
+    it('setURLアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceFormType = initialState
+        const newState = reducer(previousState, slice.actions.setURL('New URL'))
+        expect(newState.url).toBe('New URL')
+    })
 
-            const _v = document.getElementById("text") as HTMLDivElement
-            expect(_v.innerHTML).toEqual('test1')
-        }
-    )
-    test(
-        "urlの登録ができる",
-        () => {
-            render(<Provider store={store}><SourceFormComponent/></Provider>)
-            const input = document.getElementById("set-url") as HTMLInputElement
-            fireEvent.change(input, {target: {value: 'http://example.com'}})
-
-            const _v = document.getElementById("url") as HTMLDivElement
-            expect(_v.innerHTML).toEqual('http://example.com')
-        }
-    )
+    it('resetアクションが状態を初期状態にリセットすることを確認する', () => {
+        const previousState: SourceFormType = testSourceForm
+        const newState = reducer(previousState, slice.actions.reset())
+        expect(newState).toEqual(initialState)
+    })
 })

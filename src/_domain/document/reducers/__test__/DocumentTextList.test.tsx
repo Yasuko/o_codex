@@ -1,87 +1,84 @@
-import React from "react"
-import "@testing-library/jest-dom"
+import { describe, it, expect } from 'vitest'
+import reducer, { initialState, slice } from '../DocumentTextList' // 適切なパスに置き換えてください
+import { DocumentTextListType, DocumentTextOptionType } from '../__type.document'
 
-import { fireEvent, render } from "@testing-library/react"
-import { describe, expect, test } from "vitest"
-
-import { Provider } from "react-redux"
-import { createStore } from '../../../../_store/configureStore'
-const store = createStore()
-
-import DocumentTestListComponent from "./DocumentTextList.component"
-
-const add_test = {
-    title: 'test',
-    url: 'http://example.com',
+/**
+ * テスト用のデータ
+ */
+const testTextsOption: DocumentTextOptionType = {
+    title: 'タイトル',
+    url: 'https://example.com',
     loading: false,
-    document: ['test'],
+    document: [],
     embedding: false,
-    key: 'unko',
-    chunk: [['test']]
+    key: 'key',
+    chunk: []
 }
-
-const update_test = {
-    title: 'test2',
-    url: 'http://example_forever.com',
+/**
+ * テスト用の更新データ
+ */
+const testTextsOptionUpdated: DocumentTextOptionType = {
+    title: '更新タイトル',
+    url: 'https://new.com',
     loading: true,
-    document: ['test2'],
-    embedding: true,
-    key: 'unko2',
-    chunk: [['test2']]
-
+    document: ['doc1'],
+    embedding: false,
+    key: 'old-key',
+    chunk: [['chunk1']]
 }
 
-describe("DocumentTextList Reducerのテスト", () => {
-    test(
-        "textデータの追加",
-        () => {
-            render(<Provider store={store}><DocumentTestListComponent/></Provider>)
-            const input = document.getElementById("add-text") as HTMLInputElement
-            fireEvent.change(input, {
-                target: {
-                    value: JSON.stringify(add_test)
-                }
-            })
-            const _v = document.getElementById("texts") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(JSON.stringify([add_test]))
-        }
-    )
-    test(
-        "textデータの更新",
-        () => {
-            render(<Provider store={store}><DocumentTestListComponent/></Provider>)
-            const input = document.getElementById("update-text") as HTMLInputElement
-            fireEvent.change(input, {target: {
-                            value: JSON.stringify({
-                                ...update_test,
-                                index: 0
-                            })
-                        }})
-            const _v = document.getElementById("texts") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(JSON.stringify([update_test]))
-        }
-    )
-    test(
-        "textデータの削除",
-        () => {
-            render(<Provider store={store}><DocumentTestListComponent/></Provider>)
+/**
+ * テスト用のリストデータ
+ */
+const testTextsList: DocumentTextListType = {
+    texts: [testTextsOption],
+    page: 0,
+    max_list: 10
+}
 
-            const input = document.getElementById("remove-text") as HTMLInputElement
-            const index = { index: 0 }
+describe('DocumentTextListスライス', () => {
+    it('setアクションが正しく状態を更新することを確認する', () => {
+        const previousState = { ...initialState }
+        const payload = testTextsList
+        const newState = reducer(previousState, slice.actions.set(payload))
+        expect(newState).toEqual(payload)
+    })
 
-            fireEvent.change(input, {target: {value: JSON.stringify(index)}})
-            const _v = document.getElementById("texts") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(JSON.stringify([]))
-        }
-    )
-    test(
-        "Reducerのリセットができる",
-        () => {
-            render(<Provider store={store}><DocumentTestListComponent/></Provider>)
-            const input = document.getElementById("reset-button") as HTMLButtonElement
-            fireEvent.click(input)
-            const _v = document.getElementById("texts") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(JSON.stringify([]))
-        }
-    )
+    it('addアクションが正しく状態を更新することを確認する', () => {
+        const previousState = { ...initialState }
+        const payload = testTextsOption
+        const newState = reducer(previousState, slice.actions.add(payload))
+        expect(newState.texts).toContainEqual(payload)
+    })
+
+    it('updateアクションが正しく状態を更新することを確認する', () => {
+        const previousState = { ...initialState, texts: [testTextsOption] }
+        const payload = testTextsOptionUpdated
+        const newState = reducer(previousState, slice.actions.update({...payload, index: 0}))
+        expect(newState.texts[0]).toEqual(payload)
+    })
+
+    it('removeアクションが正しく状態を更新することを確認する', () => {
+        const previousState = { ...initialState, texts: [testTextsOption] }
+        const newState = reducer(previousState, slice.actions.remove(0))
+        expect(newState.texts).toHaveLength(0)
+    })
+
+    it('setPageアクションが正しく状態を更新することを確認する', () => {
+        const previousState = { ...initialState }
+        const newState = reducer(previousState, slice.actions.setPage(2))
+        expect(newState.page).toBe(2)
+    })
+
+    it('setMaxListアクションが正しく状態を更新することを確認する', () => {
+        const previousState = { ...initialState }
+        const newState = reducer(previousState, slice.actions.setMaxList(10))
+        expect(newState.max_list).toBe(10)
+    })
+
+    it('resetアクションが状態を初期状態にリセットすることを確認する', () => {
+        const previousState = { ...initialState, texts: [testTextsOption] }
+        const newState = reducer(previousState, slice.actions.reset())
+        expect(newState).toEqual(initialState)
+    })
 })

@@ -13,7 +13,7 @@ export type ResultInterface = ResultOptionType
 export type SearchResultInterface = SearchResultType
 export const initialState: SearchResultInterface = initialSearchResult
 
-const slice = createSlice({
+export const slice = createSlice({
     name: 'SearchResult',
     initialState,
     reducers: {

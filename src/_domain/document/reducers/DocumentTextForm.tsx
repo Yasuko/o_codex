@@ -15,7 +15,7 @@ export const initialState: DocumentTextFormInterface = {
     index: -1
 }
 
-const slice = createSlice({
+export const slice = createSlice({
     name: 'DocumentTextForm',
     initialState,
     reducers: {

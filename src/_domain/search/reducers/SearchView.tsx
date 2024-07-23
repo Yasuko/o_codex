@@ -8,7 +8,7 @@ export interface SearchViewPropsInterface {
 export type SearchViewInterface = SearchViewOptionType
 export const initialState: SearchViewInterface = initialSearchView
 
-const slice = createSlice({
+export const slice = createSlice({
     name: 'SearchView',
     initialState,
     reducers: {

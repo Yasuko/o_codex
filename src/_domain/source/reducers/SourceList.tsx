@@ -15,7 +15,7 @@ export type SourceOptionInterface = SourceOptionType
 export type SourceListInterface = SourceType
 export const initialState: SourceListInterface = initialSource
 
-const slice = createSlice({
+export const slice = createSlice({
     name: 'SourceList',
     initialState,
     reducers: {

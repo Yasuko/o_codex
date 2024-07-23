@@ -1,54 +1,44 @@
-import React from "react"
-import "@testing-library/jest-dom"
+import { describe, it, expect } from 'vitest'
+import reducer, { initialState, slice } from '../DocumentEmbedView' // 適切なパスに置き換えてください
+import { DocumentViewOptionType } from '../__type.document' // 適切なパスに置き換えてください
 
-import { fireEvent, render } from "@testing-library/react"
-import { describe, expect, test } from "vitest"
+const testDocumentViewOption: DocumentViewOptionType = {
+    document: 'doc1',
+    embedding: [[1, 2, 3]],
+    embedding_n: [[1, 2, 3]],
+}
 
-import { Provider } from "react-redux"
-import { createStore } from '../../../../_store/configureStore'
-const store = createStore()
+describe('DocumentEmbedViewスライス', () => {
+    it('setアクションが正しく状態を更新することを確認する', () => {
+        const previousState = initialState
+        const newOptions: Partial<DocumentViewOptionType> = { document: 'new document' }
+        const newState = reducer(previousState, slice.actions.set(newOptions))
+        expect(newState.document).toBe('new document')
+    })
 
-import DocumentEmbedFormComponent from "./DocumentEmbedView.component"
+    it('setDocumentアクションが正しく状態を更新することを確認する', () => {
+        const previousState = initialState
+        const newState = reducer(previousState, slice.actions.setDocument('new document'))
+        expect(newState.document).toBe('new document')
+    })
 
-describe("DocumentEmbedView Reducerのテスト", () => {
-    test(
-        "documentの登録ができる",
-        () => {
-            render(<Provider store={store}><DocumentEmbedFormComponent/></Provider>)
-            const input = document.getElementById("document-input") as HTMLInputElement
-            const _v = document.getElementById("document") as HTMLDivElement
-            fireEvent.change(input, {target: {value: "test"}})
-            expect(_v.innerHTML).toEqual('test')
-        }
-    )
-    test(
-        "embeddingの登録ができる",
-        () => {
-            render(<Provider store={store}><DocumentEmbedFormComponent/></Provider>)
-            const input = document.getElementById("embedding-input") as HTMLInputElement
-            const _v = document.getElementById("embedding") as HTMLDivElement
-            fireEvent.change(input, {target: {value: JSON.stringify(['test1','test2','test3'])}})
-            expect(_v.innerHTML).toEqual('test1')
-        }
-    )
-    test(
-        "embedding_nの登録ができる",
-        () => {
-            render(<Provider store={store}><DocumentEmbedFormComponent/></Provider>)
-            const input = document.getElementById("embedding_n-input") as HTMLInputElement
-            const _v = document.getElementById("embedding_n") as HTMLDivElement
-            fireEvent.change(input, {target: {value: JSON.stringify(['test1','test2','test3'])}})
-            expect(_v.innerHTML).toEqual('test1')
-        }
-    )
-    test(
-        "Reducerのリセットができる",
-        () => {
-            render(<Provider store={store}><DocumentEmbedFormComponent/></Provider>)
-            const input = document.getElementById("reset-button") as HTMLButtonElement
-            const _v = document.getElementById("document") as HTMLDivElement
-            fireEvent.click(input)
-            expect(_v.innerHTML).toEqual('')
-        }
-    )
+    it('setEmbeddingアクションが正しく状態を更新することを確認する', () => {
+        const previousState = initialState
+        const newEmbedding = [[1, 2, 3]]
+        const newState = reducer(previousState, slice.actions.setEmbedding(newEmbedding))
+        expect(newState.embedding).toEqual(newEmbedding)
+    })
+
+    it('setEmbeddingNアクションが正しく状態を更新することを確認する', () => {
+        const previousState = initialState
+        const newEmbeddingN = [[4, 5, 6]]
+        const newState = reducer(previousState, slice.actions.setEmbeddingN(newEmbeddingN))
+        expect(newState.embedding_n).toEqual(newEmbeddingN)
+    })
+
+    it('resetアクションが状態を初期状態にリセットすることを確認する', () => {
+        const previousState = testDocumentViewOption
+        const newState = reducer(previousState, slice.actions.reset())
+        expect(newState).toEqual(initialState)
+    })
 })

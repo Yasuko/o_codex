@@ -9,7 +9,7 @@ export interface SearchFormPropsInterface {
 export type SearchFormInterface = SearchType
 export const initialState: SearchFormInterface = initialSearch
 
-const slice = createSlice({
+export const slice = createSlice({
     name: 'SearchForm',
     initialState,
     reducers: {
@@ -49,7 +49,7 @@ const slice = createSlice({
         },
         updateOptions: (
             state,
-            action: PayloadAction<{[key: string]: string}>
+            action: PayloadAction<{[key: string]: string | number}>
         ) => {
             const o = duplicator(state.options)
             o[action.payload.index] = {

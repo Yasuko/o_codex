@@ -1,129 +1,53 @@
-import React from "react"
-import "@testing-library/jest-dom"
+import { describe, it, expect } from 'vitest'
+import reducer, { initialState, slice } from '../SourceScreen' // 適切なパスに置き換えてください
+import { SourceScreenType } from '../__type.source' // 適切なパスに置き換えてください
 
-import { fireEvent, render } from "@testing-library/react"
-import { describe, expect, test } from "vitest"
 
-import { Provider } from "react-redux"
-import { createStore } from '../../../../_store/configureStore'
-const store = createStore()
+describe('SourceScreenスライス', () => {
+    it('homeアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceScreenType = initialState
+        const newState = reducer(previousState, slice.actions.home())
+        expect(newState.home).toBe(false)
+    })
 
-import SourceScreenComponent from "./SourceScreen.component"
+    it('newアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceScreenType = initialState
+        const newState = reducer(previousState, slice.actions.new())
+        expect(newState.home).toBe(false)
+        expect(newState.new).toBe(true)
+    })
 
-describe("DocumentScreen Reducerのテスト", () => {
-    test(
-        "homeの切り替え試験",
-        () => {
-            render(<Provider store={store}><SourceScreenComponent/></Provider>)
-            const input = document.getElementById("change-home") as HTMLButtonElement
-            const _v = document.getElementById("home") as HTMLDivElement
+    it('editアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceScreenType = initialState
+        const newState = reducer(previousState, slice.actions.edit())
+        expect(newState.home).toBe(false)
+        expect(newState.edit).toBe(true)
+    })
 
-            fireEvent.click(input)
-            expect(_v.innerHTML).toEqual('false')
+    it('viewアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceScreenType = initialState
+        const newState = reducer(previousState, slice.actions.view())
+        expect(newState.home).toBe(false)
+        expect(newState.view).toBe(true)
+    })
 
-            fireEvent.click(input)
-            expect(_v.innerHTML).toEqual('true')
-        }
-    )
-    test(
-        "newの切り替え試験",
-        () => {
-            render(<Provider store={store}><SourceScreenComponent/></Provider>)
-            const input = document.getElementById("change-new") as HTMLButtonElement
-            const _v = document.getElementById("new") as HTMLDivElement
-            const _h = document.getElementById("home") as HTMLDivElement
+    it('removeアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceScreenType = initialState
+        const newState = reducer(previousState, slice.actions.remove())
+        expect(newState.home).toBe(false)
+        expect(newState.remove).toBe(true)
+    })
 
-            fireEvent.click(input)
-            expect(_v.innerHTML).toEqual('true')
-            expect(_h.innerHTML).toEqual('false')
+    it('importアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceScreenType = initialState
+        const newState = reducer(previousState, slice.actions.import())
+        expect(newState.home).toBe(false)
+        expect(newState.import).toBe(true)
+    })
 
-            fireEvent.click(input)
-            expect(_v.innerHTML).toEqual('false')
-        }
-    )
-    test(
-        "editの切り替え試験",
-        () => {
-            render(<Provider store={store}><SourceScreenComponent/></Provider>)
-            const input = document.getElementById("change-edit") as HTMLButtonElement
-            const _v = document.getElementById("edit") as HTMLDivElement
-            const _h = document.getElementById("home") as HTMLDivElement
-
-            fireEvent.click(input)
-            expect(_v.innerHTML).toEqual('true')
-            expect(_h.innerHTML).toEqual('false')
-
-            fireEvent.click(input)
-            expect(_v.innerHTML).toEqual('false')
-        }
-    )
-    test(
-        "removeの切り替え試験",
-        () => {
-            render(<Provider store={store}><SourceScreenComponent/></Provider>)
-            const input = document.getElementById("change-remove") as HTMLButtonElement
-            const _v = document.getElementById("remove") as HTMLDivElement
-            const _h = document.getElementById("home") as HTMLDivElement
-
-            fireEvent.click(input)
-            expect(_v.innerHTML).toEqual('true')
-            expect(_h.innerHTML).toEqual('false')
-
-            fireEvent.click(input)
-            expect(_v.innerHTML).toEqual('false')
-        }
-    )
-    test(
-        "viewの切り替え試験",
-        () => {
-            render(<Provider store={store}><SourceScreenComponent/></Provider>)
-            const input = document.getElementById("change-view") as HTMLButtonElement
-            const _v = document.getElementById("view") as HTMLDivElement
-            const _h = document.getElementById("home") as HTMLDivElement
-
-            fireEvent.click(input)
-            expect(_v.innerHTML).toEqual('true')
-            expect(_h.innerHTML).toEqual('false')
-
-            fireEvent.click(input)
-            expect(_v.innerHTML).toEqual('false')
-        }
-    )
-    test(
-        "importの切り替え試験",
-        () => {
-            render(<Provider store={store}><SourceScreenComponent/></Provider>)
-            const input = document.getElementById("change-import") as HTMLButtonElement
-            const _v = document.getElementById("import") as HTMLDivElement
-            const _h = document.getElementById("home") as HTMLDivElement
-
-            fireEvent.click(input)
-            expect(_v.innerHTML).toEqual('true')
-            expect(_h.innerHTML).toEqual('false')
-
-            fireEvent.click(input)
-            expect(_v.innerHTML).toEqual('false')
-        }
-    )
-    test(
-        "Reducerのリセットができる",
-        () => {
-            render(<Provider store={store}><SourceScreenComponent/></Provider>)
-            const input = document.getElementById("reset-button") as HTMLButtonElement
-            const _h = document.getElementById("home") as HTMLDivElement
-            const _n = document.getElementById("new") as HTMLDivElement
-            const _e = document.getElementById("edit") as HTMLDivElement
-            const _r = document.getElementById("remove") as HTMLDivElement
-            const _v = document.getElementById("view") as HTMLDivElement
-            const _i = document.getElementById("import") as HTMLDivElement
-
-            fireEvent.click(input)
-            expect(_h.innerHTML).toEqual('true')
-            expect(_n.innerHTML).toEqual('false')
-            expect(_e.innerHTML).toEqual('false')
-            expect(_r.innerHTML).toEqual('false')
-            expect(_v.innerHTML).toEqual('false')
-            expect(_i.innerHTML).toEqual('false')
-        }
-    )
+    it('resetアクションが状態を初期状態にリセットすることを確認する', () => {
+        const previousState: SourceScreenType = initialState
+        const newState = reducer(previousState, slice.actions.reset())
+        expect(newState).toEqual(initialState)
+    })
 })

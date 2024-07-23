@@ -1,80 +1,54 @@
-import React from "react"
-import "@testing-library/jest-dom"
+import { describe, it, expect } from 'vitest'
+import reducer, { initialState, slice } from '../DocumentEmbedList' // 適切なパスに置き換えてください
+import {
+    DocumentEmbedListOptionInterface,
+    DocumentEmbedListInterface
+} from '../DocumentEmbedList' // 適切なパスに置き換えてください
 
-import { fireEvent, render } from "@testing-library/react"
-import { describe, expect, test } from "vitest"
-
-import { Provider } from "react-redux"
-import { createStore } from '../../../../_store/configureStore'
-const store = createStore()
-
-import DocumentEmbedListComponent from "./DocumentEmbedList.component"
-
-const add_test = {
-    document: ['test'],
-    embedding: [[['test']]],
-    embedding_n: [[['test']]],
-    key: 'unko'
+const testEmbedsOption: DocumentEmbedListOptionInterface = {
+    document: ['doc1'],
+    embedding: [[[1,2,3]]],
+    embedding_n: [[[1,2,3]]],
+    key: 'key1'
 }
 
-const update_test = {
-    document: ['test2'],
-    embedding: [[['test2']]],
-    embedding_n: [[['test2']]],
-    key: 'unko2'
+const testEmbed: DocumentEmbedListInterface = {
+    embeds: [testEmbedsOption],
+    page: 1,
+    max_list: 10
 }
 
-describe("DocumentEmbedVList Reducerのテスト", () => {
-    test(
-        "embedデータの追加",
-        () => {
-            render(<Provider store={store}><DocumentEmbedListComponent/></Provider>)
-            const input = document.getElementById("embed-add-input") as HTMLInputElement
-            fireEvent.change(input, {
-                target: {
-                    value: JSON.stringify(add_test)
-                }
-            })
-            const _v = document.getElementById("embeds") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(JSON.stringify([add_test]))
-        }
-    )
-    test(
-        "embedデータの更新",
-        () => {
-            render(<Provider store={store}><DocumentEmbedListComponent/></Provider>)
-            const input = document.getElementById("embed-update-input") as HTMLInputElement
-            fireEvent.change(input, {target: {
-                            value: JSON.stringify({
-                                ...update_test,
-                                index: 0
-                            })
-                        }})
-            const _v = document.getElementById("embeds") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(JSON.stringify([update_test]))
-        }
-    )
-    test(
-        "embedデータの削除",
-        () => {
-            render(<Provider store={store}><DocumentEmbedListComponent/></Provider>)
+describe('DocumentEmbedListスライス', () => {
+    it('setアクションが正しく状態を更新することを確認する', () => {
+        const previousState = initialState
+        const newEmbeds: DocumentEmbedListInterface = { embeds: [testEmbedsOption], page: 1, max_list: 10 }
+        const newState = reducer(previousState, slice.actions.set(newEmbeds))
+        expect(newState.embeds).toEqual(newEmbeds.embeds)
+    })
 
-            const input = document.getElementById("embed-remove-input") as HTMLInputElement
-            const index = { index: 0 }
+    it('addアクションが正しく状態を更新することを確認する', () => {
+        const previousState = initialState
+        const newEmbed: DocumentEmbedListOptionInterface & { key: string } = testEmbedsOption
+        const newState = reducer(previousState, slice.actions.add(newEmbed))
+        expect(newState.embeds).toContainEqual(newEmbed)
+    })
 
-            fireEvent.change(input, {target: {value: JSON.stringify(index)}})
-            const _v = document.getElementById("embeds") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(JSON.stringify([]))
-        }
-    )
-    test(
-        "Reducerのリセットができる",
-        () => {
-            render(<Provider store={store}><DocumentEmbedListComponent/></Provider>)
-            const input = document.getElementById("reset-button") as HTMLButtonElement
-            fireEvent.click(input)
-            const _v = document.getElementById("embeds") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(JSON.stringify([]))
-        }
-    )
+    it('updateアクションが正しく状態を更新することを確認する', () => {
+        const previousState = initialState
+        const updatedEmbed: DocumentEmbedListOptionInterface & { key: string, index: number } = { ...testEmbedsOption, index: 0 }
+        const newState = reducer(previousState, slice.actions.update(updatedEmbed))
+        expect(newState.embeds[0]).toEqual(testEmbedsOption)
+    })
+
+    it('removeアクションが正しく状態を更新することを確認する', () => {
+        const previousState = testEmbed
+        const newState = reducer(previousState, slice.actions.remove({ key: 'key1', index: 0 }))
+        expect(newState.embeds).toHaveLength(0)
+    })
+
+    it('resetアクションが状態を初期状態にリセットすることを確認する', () => {
+        const previousState = testEmbed
+        const newState = reducer(previousState, slice.actions.reset())
+        expect(newState).toEqual(initialState)
+    })
 })

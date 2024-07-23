@@ -15,7 +15,7 @@ export type DocumentEmbedListOptionInterface = DocumentEmbedOptionType
 export type DocumentEmbedListInterface = DocumentEmbedListType
 export const initialState: DocumentEmbedListInterface = initialDocumentEmbedList
 
-const slice = createSlice({
+export const slice = createSlice({
     name: 'DocumentEmbedList',
     initialState,
     reducers: {

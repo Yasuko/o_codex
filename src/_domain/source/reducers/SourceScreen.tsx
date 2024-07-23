@@ -10,7 +10,7 @@ export interface SourceScreenPropsInterface {
 export type SourceScreenInterface = SourceScreenType
 export const initialState: SourceScreenInterface = initialSourceScreen
 
-const slice = createSlice({
+export const slice = createSlice({
     name: 'SourceScreen',
     initialState,
     reducers: {

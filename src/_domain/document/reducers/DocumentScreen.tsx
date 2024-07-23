@@ -10,7 +10,7 @@ export interface DocumentScreenPropsInterface {
 export type DocumentScreenInterface = DocumentScreenType
 export const initialState: DocumentScreenInterface = initialDocumentScreen
 
-const slice = createSlice({
+export const slice = createSlice({
     name: 'DocumentScreen',
     initialState,
     reducers: {

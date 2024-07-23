@@ -10,7 +10,7 @@ export interface SourceFormPropsInterface {
 export type SourceFormInterface = SourceFormType
 export const initialState: SourceFormInterface = initialSourceOption
 
-const slice = createSlice({
+export const slice = createSlice({
     name: 'SourceForm',
     initialState,
     reducers: {

@@ -8,7 +8,7 @@ export interface DocumentEmbedViewPropsInterface {
 export type DocumentEmbedViewInterface = DocumentViewOptionType
 export const initialState: DocumentEmbedViewInterface = initialDocumentViewOption
 
-const slice = createSlice({
+export const slice = createSlice({
     name: 'DocumentEmbedView',
     initialState,
     reducers: {

@@ -10,7 +10,7 @@ export interface SearchScreenPropsInterface {
 export type SearchScreenInterface = SearchScreenType
 export const initialState: SearchScreenInterface = initialSearchScreen
 
-const slice = createSlice({
+export const slice = createSlice({
     name: 'SearchScreen',
     initialState,
     reducers: {

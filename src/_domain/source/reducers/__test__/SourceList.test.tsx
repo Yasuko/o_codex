@@ -1,100 +1,69 @@
-import React from "react"
-import "@testing-library/jest-dom"
+import { describe, it, expect } from 'vitest'
+import reducer, { initialState, slice } from '../SourceList' // 適切なパスに置き換えてください
+import { SourceType, SourceOptionType } from '../__type.source' // 適切なパスに置き換えてください
 
-import { fireEvent, render } from "@testing-library/react"
-import { describe, expect, test } from "vitest"
-
-import { Provider } from "react-redux"
-import { createStore } from '../../../../_store/configureStore'
-const store = createStore()
-
-import SourceListComponent from "./SourceList.component"
-
-const add_test = {
-    title: 'test1',
-    text: 'test1',
-    url: 'http://example.com',
+const testSourceOption: SourceOptionType = {
+    title: 'Title1',
+    text: 'Text1',
+    url: 'URL1'
 }
 
-const update_test = {
-    title: 'test2',
-    text: 'test2',
-    url: 'http://example_shakenokawa.com',
+const testSourceOption2: SourceOptionType = {
+    title: 'Title2',
+    text: 'Text2',
+    url: 'URL2'
 }
 
-describe("DocumentEmbedVList Reducerのテスト", () => {
-    test(
-        "sourceデータの追加",
-        () => {
-            render(<Provider store={store}><SourceListComponent/></Provider>)
-            const input = document.getElementById("set-add") as HTMLInputElement
-            fireEvent.change(input, {
-                target: {
-                    value: JSON.stringify(add_test)
-                }
-            })
-            const _v = document.getElementById("sources") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(JSON.stringify([add_test]))
-        }
-    )
-    test(
-        "sourceデータの更新",
-        () => {
-            render(<Provider store={store}><SourceListComponent/></Provider>)
-            const input = document.getElementById("set-update") as HTMLInputElement
-            fireEvent.change(input, {target: {
-                            value: JSON.stringify({
-                                ...update_test,
-                                index: 0
-                            })
-                        }})
-            const _v = document.getElementById("sources") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(JSON.stringify([update_test]))
-        }
-    )
-    test(
-        "sourceデータの削除",
-        () => {
-            render(<Provider store={store}><SourceListComponent/></Provider>)
+const testSource: SourceType = {
+    sources: [testSourceOption],
+    page: 1,
+    max_list: 10
+}
 
-            const input = document.getElementById("set-remove") as HTMLInputElement
-            const index = { index: 0 }
+describe('SourceListスライス', () => {
+    it('setアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceType = { sources: [], page: 1, max_list: 10 }
+        const newSources: SourceType = { sources: [testSourceOption], page: 1, max_list: 10 }
+        const newState = reducer(previousState, slice.actions.set(newSources))
+        expect(newState.sources).toEqual(testSource)
+    })
 
-            fireEvent.change(input, {target: {value: JSON.stringify(index)}})
-            const _v = document.getElementById("sources") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(JSON.stringify([]))
-        }
-    )
-    test(
-        "pageの更新が出来る",
-        () => {
-            render(<Provider store={store}><SourceListComponent/></Provider>)
-            const input = document.getElementById("set-page") as HTMLInputElement
-            fireEvent.change(input, {target: {value: 3}})
+    it('addアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceType = { sources: [], page: 1, max_list: 10 }
+        const newSource: SourceOptionType = testSourceOption
+        const newState = reducer(previousState, slice.actions.add(newSource))
+        expect(newState.sources).toHaveLength(1)
+        expect(newState.sources[0]).toEqual(newSource)
+    })
 
-            const _v = document.getElementById("page") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(String(3))
-        }
-    )
-    test(
-        "max-listの更新が出来る",
-        () => {
-            render(<Provider store={store}><SourceListComponent/></Provider>)
-            const input = document.getElementById("set-max-list") as HTMLInputElement
-            fireEvent.change(input, {target: {value: 3}})
+    it('updateアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceType = testSource
+        const updatedSource: SourceOptionType & { index: number } = { ...testSourceOption2, index: 0 }
+        const newState = reducer(previousState, slice.actions.update(updatedSource))
+        expect(newState.sources[0]).toEqual(testSourceOption2)
+    })
 
-            const _v = document.getElementById("max_list") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(String(3))
-        }
-    )
-    test(
-        "Reducerのリセットができる",
-        () => {
-            render(<Provider store={store}><SourceListComponent/></Provider>)
-            const input = document.getElementById("reset-button") as HTMLButtonElement
-            fireEvent.click(input)
-            const _v = document.getElementById("sources") as HTMLDivElement
-            expect(_v.innerHTML).toEqual(JSON.stringify([]))
-        }
-    )
+    it('removeアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceType = testSource
+        const newState = reducer(previousState, slice.actions.remove(0))
+        expect(newState.sources).toHaveLength(0)
+    })
+
+    it('pageアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceType = { sources: [], page: 1, max_list: 10 }
+        const newState = reducer(previousState, slice.actions.page(2))
+        expect(newState.page).toBe(2)
+    })
+
+    it('maxListアクションが正しく状態を更新することを確認する', () => {
+        const previousState: SourceType = { sources: [], page: 1, max_list: 10 }
+        const newState = reducer(previousState, slice.actions.maxList(20))
+        expect(newState.max_list).toBe(20)
+    })
+
+    it('resetアクションが状態を初期状態にリセットすることを確認する', () => {
+        const previousState: SourceType = testSource
+        const newState = reducer(previousState, slice.actions.reset())
+        expect(newState).toEqual(initialState)
+    })
 })
