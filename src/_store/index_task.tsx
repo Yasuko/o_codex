@@ -7,6 +7,7 @@ import { RootDocumentAction } from '../_domain/document/document.action'
 import { RootSourceAction } from '../_domain/source/source.action'
 import { RootAdminAction } from '../_domain/admin/admin.action'
 import { RootTokenAction } from '../_domain/token/token.action'
+import { RootAuthAction } from '../_domain/auth/auth.action'
 
 // Load AnimationAction
 import { AnimationTask } from '../pages/animation/index.task'
@@ -21,6 +22,7 @@ export default function* rootSaga() {
         ...RootDocumentAction,
         ...RootSourceAction,
         ...RootTokenAction,
+        ...RootAuthAction,
         ...AnimationTask
     ]);
 }
